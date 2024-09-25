@@ -75,6 +75,42 @@ csrf_token penting untuk menlindungi dari serangan CSRF (Cross-Site Request Forg
 ## JSON by id
 ![JSONById](https://github.com/user-attachments/assets/99530139-6f8c-4136-ba3d-a8fcbba1e982)
 
+# Tugas 4
+## Perbedaan antar HttpResponseRedirect() dan redirect()
+pada HttpResponseRedirect() dia secara langsung membuat objek HTTP response yang mengarahkan user sesuai dengan URL yang sesuai. untuk redirect(), dia merupakan shortcut dari HttpResponseRedirect namun bisa menerima lebih banyak jenis argumen. redirect() juga menggunakan parameter positional sehingga kita hanya perlu memberikan nama biew atau URL tujuan dan Django akan mengonversinya menjadi URL yang tepat.
+
+## Cara kerja penghubungan model Product dan User
+Pada Django, product bisa dihubungkan dengan User dengan menggunakan ForeignKey dimana setiap produk hanya bisa dimiliki satu user, namun user bisa memiliki banyak produk. Owner pada model Product akan menyimpan informasi tentang produk sehingga produk tersebut akan terhubung secara otomatis dengan User melalui penggunaan ForeignKey.
+
+## Perbedaan Authentication dan Authorization dan bagaimana Django mengimplementasinya
+1) Authentication: merupakan proses pemeriksaan apakah user sesuai dengan data biasanya dengan cara memasukkan username dan password dan informasi yang dimasukkan user benar maka mereka bisa masuk kedalam sistem.
+2) Authorization: merupakan proses yang terjadi setelah user berhasil masuk ke sistem sehingga nanti Django akan menentukan hal apa saja yang bisa diakses oleh pengguna dan apa saja yang tidak bisa dikases oleh pengguna.
+
+Implementasi Django pada proses authentication yaitu saat user melakukan login dengan authentication view Django dimana informasi yang mereka masukkan akan dicek apakah sesuai dengan data. Saat informasi sudah terverifikasi, Django akan membuat sesi untuk user dan user bisa masuk kedalam sistem. Implementasi pada authorization yaitu menggunakan permission classes dan decorators dimana jika kita menggunakan @login_required pada suatu view maka view itu hanya dapat diakses oleh user yang sudah terverifikasi.
+
+## Bagaimana Django mengingat pengguna yang telah login dan kegunaan lain dari cookies dan apakah semua cookies aman
+Django menggunakan sesi untuk mengingat pengguna yang sudah login. Saat login berhasil, Django akan membuat sesi dan menyimpan identifier atau session ID dalam bentuk cookie di browser pengguna.
+
+Pengelolaan Cookie: Cookie memungkinkan Django mengenali pengguna yang kembali tanpa perlu login lagi, kecuali sesi tersebut telah kedaluwarsa atau pengguna melakukan logout. Selain untuk otentikasi, cookie juga berguna untuk:
+1) Melacak perilaku pengguna, karena cookie dapat menyimpan informasi seperti preferensi dan aktivitas pengguna selama sesi berlangsung.
+2) Menyimpan pengaturan pengguna, seperti bahasa yang dipilih atau tema tampilan, sehingga pengalaman mereka lebih personal.
+
+Namun, tidak semua cookie aman digunakan, tergantung pada bagaimana pengamanannya diterapkan. Django menyediakan dua fitur penting untuk melindungi cookie: HttpOnly dan Secure. HttpOnly mencegah akses cookie oleh JavaScript di browser, sehingga hanya server yang bisa membaca atau memodifikasinya melalui protokol HTTP/HTTPS. Sementara itu, Secure memastikan cookie hanya dikirim melalui koneksi HTTPS yang terenkripsi, sehingga lebih aman dari serangan luar.
+
+## Cara mengimplementasikan checklist secara step-by-step
+1. Membuat Form Register:
+   - membuat fungsi register di view untuk menampilkan form pendaftaran akun baru
+   - membuat file HTML agar user bisa melakukan pendaftaran dengan mengisi informasi yang dibutuhkan
+   - menambahkan path di url untuk menghubungkan fungsi register
+2. Membuat Fungsi Login dan Logout:
+   - Buat fungsi login yang memungkinkan pengguna masuk. Saat pengguna berhasil login, Django akan membuat cookie bernama last_login yang mencatat kapan pengguna terakhir kali login.
+   - Buat fungsi logout yang menghapus cookie last_login menggunakan response.delete_cookie('last_login') ketika pengguna keluar.
+3. Menampilkan Cookie last_login di Halaman Web:
+   - menambahkan last_login: request.COOKIES['last_login'] di views
+4. Menambahkan URL path untuk login dan logout di url
+5. Menambahkan decorator @login_required pada views agar user harus login dahulu sebelum masuk
+6. Menghubungkan Product dengan User:
+   - menggunakan ForeignKey untuk menghubungkan product dengan user di models.py dan melakukan migrasi agar perubahan tersimpan.
 
 
 
