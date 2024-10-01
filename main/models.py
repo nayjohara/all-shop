@@ -8,3 +8,4 @@ class AllShop(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+

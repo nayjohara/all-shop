@@ -113,6 +113,28 @@ Namun, tidak semua cookie aman digunakan, tergantung pada bagaimana pengamananny
    - menggunakan ForeignKey untuk menghubungkan product dengan user di models.py dan melakukan migrasi agar perubahan tersimpan.
 
 
+# Tugas 5
 
+## Urutan PRioritas Pengambilan CSS Selector 
+Dalam CSS, urutan prioritas menentukan mana gaya yang diterapkan ketika beberapa aturan berlaku untuk elemen yang sama. Pertama, inline styles (gaya langsung di elemen) memiliki prioritas tertinggi. Selanjutnya, ID selectors (yang menggunakan tanda #) lebih kuat daripada class selectors (yang menggunakan tanda .) dan pseudo-classes (seperti :hover), yang semuanya memiliki prioritas yang sama. Kemudian, ada tag selectors (seperti div atau p), dan terakhir adalah universal selector (tanda *), yang memiliki prioritas terendah. Jika ada dua aturan dengan prioritas yang sama, aturan yang muncul terakhir di CSS akan digunakan.
+
+## Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web dan contoh aplikasi yang sudah dan belum menerapkan responsive design
+Responsive Design penting dalam pengembangan aplikasi web dikarenakan dengan responsive design memmungkinkan sebuah web untuk menyesuaikan UI nya dengan berbagai ukuran layar mulai dari desktop hingga layar mobile. Dengan responsive design, kita dapat meningkatkan user experience yang kita berikan seperti memudahkan user membaca suatu informasi, selain itu juga memudahkan untuk diakses dengan segala perangkat. Contoh web yang sudah menerapkan responsive design: 'https://www.tokopedia.com'. Contoh web yang belum menerapkan responsive design: 'https://jatengprov.go.id/'
+
+## Perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tesrbut
+Margin, border, dan padding adalah tiga properti CSS yang digunakan untuk mengatur ruang di sekitar elemen HTML. Margin adalah ruang di luar elemen yang memisahkan elemen tersebut dari elemen lainnya, dan dapat diatur dengan properti seperti margin: 10px;. Border adalah garis yang mengelilingi elemen dan dapat dikustomisasi dengan ketebalan, jenis, dan warna menggunakan properti seperti border: 2px solid black;. Padding adalah ruang di dalam elemen, antara konten dan batas border, yang memberikan jarak antara konten dan garis batasnya, dan diatur dengan padding: 10px;. 
+
+## Jelaskan konsep flex box dan grid layput dan kegunaannya
+lexbox digunakan untuk membuat tata letak satu dimensi, baik secara horizontal maupun vertikal, sehingga memudahkan pengaturan posisi dan distribusi ruang antar elemen, seperti pada menu navigasi atau tombol. Sementara itu, Grid Layout dirancang untuk tata letak dua dimensi, memungkinkan pengaturan elemen dalam baris dan kolom, sehingga cocok untuk struktur yang lebih kompleks, seperti galeri gambar atau halaman dengan banyak konten. 
+
+## Cara mengimplementasikan checklist secara step-by-step
+1. Buat Fitur Edit Product: Tambahkan fungsi edit_product di views.py dan buat path URL untuk fitur edit product di urls.py.
+2. Buat Fitur Delete Product: Tambahkan fungsi delete_product di views.py yang menerima parameter request dan id, lalu buat path URL untuk fitur delete product di urls.py.
+3. Buat File HTML untuk Edit Product: Buat file HTML khusus untuk mengedit produk dan file HTML untuk navigasi (navbar).
+4. Konfigurasi Static Files: Di settings.py, tambahkan middleware WhiteNoise dan atur STATIC_ROOT, STATICFILES_DIRS, dan STATIC_URL untuk mengelola file statis.
+5. Tambahkan Tailwind CSS: Buat folder static yang berisi global.css dan tambahkan script Tailwind ke dalam base.html.
+6. Styling Halaman Login dan Register: Terapkan gaya pada halaman login dan register agar lebih menarik.
+7. Styling Halaman Create Product dan Edit Product: Sesuaikan tampilan halaman untuk membuat produk dan mengedit produk.
+8. Styling pada Card Info, Card Product, Main, dan Navbar: Berikan gaya pada elemen card info, card product, bagian utama, dan navbar.
 
 

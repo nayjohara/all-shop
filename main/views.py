@@ -11,6 +11,7 @@ import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+
 @login_required(login_url='/login')
 def show_main(request):
     product_entries = AllShop.objects.filter(user=request.user)
@@ -87,3 +88,21 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_product(request, id):
+    product = AllShop.objects.get(pk = id)
+
+    form = ProductEntryForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    product = AllShop.objects.get(pk = id)
+    product.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
