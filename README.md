@@ -137,4 +137,30 @@ lexbox digunakan untuk membuat tata letak satu dimensi, baik secara horizontal m
 7. Styling Halaman Create Product dan Edit Product: Sesuaikan tampilan halaman untuk membuat produk dan mengedit produk.
 8. Styling pada Card Info, Card Product, Main, dan Navbar: Berikan gaya pada elemen card info, card product, bagian utama, dan navbar.
 
+# Tugas 6
 
+## Manfaat penggunaan JavaScript dalam pengembangan aplikasi web
+JavaScript digunakan dalam pengembangan alikasi web dikarenakan JavaScript dapat dijalankan langsung pada sisi user (browser), sehingga mengurangi ketergantungan dengan server. jadi, ketika user membuka sebuah web, JavaScript bisa berjalan langsung pada device user tanpa menunggu respon dari server, sehingga waktu pemuatannya pun terjadi lebih cepat dan lebih responsif. Selain itu, dengan JavaScript pengelolaan data menjadi lebih efektif (pengiriman data besar dengan cepat). JavaScript juga cukup fleksibel dan bisa digunakan bersama dengan HTML dan CSS. 
+
+## Fungsi dari penggunaan `await` ketika kita mengguanakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+`await` digunakan ketika kita ingin menunggu hasil dari `fetch` (respon dari server) sebelum melanjutkan ke baris kode selanjutnya. jika `await` tidak digunakan maka `fetch()` akan berjalan, dan baris kode berikutnya dijalankan tanpa menunggu hasil return dari `fetch()` selesai. Hal ini dapat mengakibatkan user mencoba menggunakan data yang belum ada dan dapat menimnulkan error ataupun output yang tidak sesuai.
+
+## Mengapa kita perlu menggunakan decorator `csrf_exempt` pada view yang kana digunakan untuk AJAX `POST`
+`csrf_exempt` digunakan pada view yang menangani AJAX `POST` untuk menonaktifkan perlindungan CSRF (Cross-Site Request Forgery) pada view tersebut. Pada Django, setiap permintaan `POST` harus memiliki sebuah token CSRF sebagai keamanan agar server dapat memastikan bahwa permintaan tersebut berasal dari sumber yang benar. Tanpa `csrf_exempt` pemintaan `POST` bisa ditolak karena tidak memiliki token CSRF yang benar.
+
+## Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+Kode frontend seperti HTML, CSS, dan JavaScript berjalan di sisi pengguna (client-side), sehingga dapat diubah oleh pengguna dengan mudah. Misalnya, seseorang bisa menghapus validasi yang mencegah pengiriman input berbahaya, seperti pada serangan XSS (Cross-Site Scripting), jika data tidak difilter di backend. Oleh karena itu, backend berperan penting sebagai pengontrol utama yang memastikan semua data yang diterima sudah dibersihkan dan aman, sehingga data yang tersimpan di basis data benar-benar valid dan terhindar dari potensi serangan.
+
+## Cara mengimplementasikan checklist step-by-step
+1) Validasi login: menambahkan condition yang akan mengeluarkan pesan error jika username atau password user salah
+2) Membuat Fungsi `add_product_entry_ajax` di `views.py`: membuat fungsi `add_product_entry_ajax` di `views.py` lalu menambhakan decorator `@csrf_exempt` dan `@require_POST`. fungsi ini akan mengambil data dari `request.POST`, lalu akan membersihkan data dengan `strip_tags` untuk menghapus tag HTML dari variabel `name` dan `description`, lalu disimpan ke database
+3) Menambahkan URL Pattern pada `urls.py`: melakukan routing fungsi `add_product_entry_ajax` dengan menambahkan `path('create-product-entry-ajax', add_product_entry_ajax, name='add_product_entry_ajax')` di `urlpatterns`. 
+4) Modifikasi fungsi `show_xml` dan `show_json` pada `views.py`: melakukan penghapusan `product_entries = AllShop.objects.filter(user=request.user)`, mengubah `data = AllShop.objects.all()` pada fungsi `show_json` dan `show_xml` menjadi `data = AllShop.objects.filter(user=request.user)`.
+5) Membuat fungsi `getProductEntries()` dan `refreshProductEntries()`: membuat fungsi `getProductEntries()` untuk mengambil data dari `/json` menggunakan `fetch()` dan return data dalam bentuk JSON. Membuat fungsi `refreshProductEntries()` untuk memanggil `getProductEntries()` dan mengubah data yang didapatkan menajdi HTML yang sesuai dengan design card. Menggunakan `DOMPurify.sanitize()` untuk membersihkan data name dan description dari input berbahaya
+6) Membuat modal untuk menambahkan produk: tambahkan elemen modal di `main.html` untuk memungkinkan pengguna menambah produk baru.
+Buat fungsi `showModal()` dan `hideModal()` untuk membuka dan menutup modal. Buat tombol `Add Product by AJAX` yang, ketika diklik, akan membuka modal crudModal yang baru saja dibuat.
+7) Menambahkan fungsi `addProductEntry()` pada `main.html`:
+buat fungsi `addProductEntry()` untuk menangani penambahan produk menggunakan metode POST. Jika berhasil, panggil `refreshProductEntries()` untuk memperbarui daftar produk di halaman tanpa memuat ulang halaman. Tambahkan event listener submit pada form untuk menjalankan `addProductEntry()` setiap kali form disubmit.
+7) Validasi di `forms.py`: tambahkan metode `clean_name()` dan `clean_description()` pada form. Kedua metode ini digunakan untuk memastikan bahwa input name dan description telah bersih dari karakter atau tag HTML yang tidak diinginkan. Jika input tidak valid, tampilkan pesan error yang sesuai.
+8) Menambahkan `DOMPurify` di `main.html`: tambahkan DOMPurify untuk membersihkan data di frontend agar input pengguna aman.
+Menambahkan script `<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>` pada block meta di `main.html`. Gunakan `DOMPurify.sanitize()` pada variabel name dan description di `refreshProductEntries()` untuk membersihkan data sebelum ditampilkan.
